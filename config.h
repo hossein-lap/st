@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "fira code:pixelsize=12:antialias=true:autohint=true";
-static char *font2[] = { "fira code:pixelsize=12:antialias=true:autohint=true" };
+static char *font = "fira code:pixelsize=15:antialias=true:autohint=true";
+static char *font2[] = { "fira code:pixelsize=15:antialias=true:autohint=true" };
 static int borderpx = 2;
 
 /*
@@ -122,34 +122,33 @@ static const char *colorname[] = {
 //  [258] = "#ff0026", /* cursor background */
 //  [259] = "#000000", /* cursor foreground */
 //};/*}}}*/
-//// /* Terminal colors (Custom) *//*{{{*/
-//static const char *colorname[] = {
-//  /* 8 normal colors */
-//  [0] = "#1d1d1d", /* black   */
-//  [1] = "#f92655", /* red     */
-//  [2] = "#a6e22e", /* green   */
-//  [3] = "#fd9717", /* yellow  */
-//  [4] = "#4e82aa", /* blue    */
-//  [5] = "#8c54de", /* magenta */
-//  [6] = "#544565", /* cyan    */
-//  [7] = "#ccccc6", /* white   */
-//
-//  /* 8 bright colors */
-//  [8]  = "#75715e", /* black   */
-//  [9]  = "#f92633", /* red     */
-//  [10] = "#a6e22e", /* green   */
-//  [11] = "#f4bf75", /* yellow  */
-//  [12] = "#66d9ef", /* blue    */
-//  [13] = "#ae81ff", /* magenta */
-//  [14] = "#545455", /* cyan    */
-//  [15] = "#f9f8f5", /* white   */
-//
-//  /* special colors */
-//  [256] = "#121212", /* background */
-//  [257] = "#ccccc6", /* foreground */
-//  [258] = "#ff0026", /* cursor background */
-//  [259] = "#000000", /* cursor foreground */
-////};/*}}}*/
+// /* Terminal colors (Custom) *//*{{{*/
+  /* 8 normal colors */
+  [0] = "#1d1d1d", /* black   */
+  [1] = "#f92655", /* red     */
+  [2] = "#a6e22e", /* green   */
+  [3] = "#fd9717", /* yellow  */
+  [4] = "#4e82aa", /* blue    */
+  [5] = "#8c54de", /* magenta */
+  [6] = "#544565", /* cyan    */
+  [7] = "#ccccc6", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#75715e", /* black   */
+  [9]  = "#f92633", /* red     */
+  [10] = "#a6e22e", /* green   */
+  [11] = "#f4bf75", /* yellow  */
+  [12] = "#66d9ef", /* blue    */
+  [13] = "#ae81ff", /* magenta */
+  [14] = "#545455", /* cyan    */
+  [15] = "#f9f8f5", /* white   */
+
+  /* special colors */
+  [256] = "#121212", /* background */
+  [257] = "#ccccc6", /* foreground */
+  [258] = "#ff0026", /* cursor background */
+  [259] = "#000000", /* cursor foreground */
+///*}}}*/
 //// Terminal colors (KDE Breeze) {{{
 //    /* 8 normal colors */
 //    [0] =  "#232627", /* black   */
@@ -172,32 +171,32 @@ static const char *colorname[] = {
 //    [15] =  "#ffffff", /* white   */
 //
 //// }}}
-// Terminal colors (256_noir) {{{
-  /* 8 normal colors */
-  [0] = "#000000", /* black   */
-  [1] = "#ee0000", /* red     */
-  [2] = "#383833", /* green   */
-  [3] = "#AAABA6", /* yellow  */
-  [4] = "#585855", /* blue    */
-  [5] = "#7a7a77", /* magenta */
-  [6] = "#D6D6D0", /* cyan    */
-  [7] = "#AAABA6", /* white   */
-
-  /* 8 bright colors */
-  [8]  = "#2E2E2C", /* black   */
-  [9]  = "#aa0000", /* red     */
-  [10] = "#999999", /* green   */
-  [11] = "#D6D6D0", /* yellow  */
-  [12] = "#7a7a77", /* blue    */
-  [13] = "#585855", /* magenta */
-  [14] = "#AAABA6", /* cyan    */
-  [15] = "#D6D6D0", /* white   */
-// }}}
-    /* special colors */
-    [256] = "#000000", /* background */
-    [257] = "#ccccc6", /* foreground */
-    [258] = "#ff0000", /* cursor background */
-    [259] = "#000000", /* cursor foreground */
+//// Terminal colors (256_noir) {{{
+//  /* 8 normal colors */
+//  [0] = "#000000", /* black   */
+//  [1] = "#ee0000", /* red     */
+//  [2] = "#383833", /* green   */
+//  [3] = "#AAABA6", /* yellow  */
+//  [4] = "#585855", /* blue    */
+//  [5] = "#7a7a77", /* magenta */
+//  [6] = "#D6D6D0", /* cyan    */
+//  [7] = "#AAABA6", /* white   */
+//
+//  /* 8 bright colors */
+//  [8]  = "#2E2E2C", /* black   */
+//  [9]  = "#aa0000", /* red     */
+//  [10] = "#999999", /* green   */
+//  [11] = "#D6D6D0", /* yellow  */
+//  [12] = "#7a7a77", /* blue    */
+//  [13] = "#585855", /* magenta */
+//  [14] = "#AAABA6", /* cyan    */
+//  [15] = "#D6D6D0", /* white   */
+//// }}}
+//    /* special colors */
+//    [256] = "#121212", /* background */
+//    [257] = "#ccccc6", /* foreground */
+//    [258] = "#ff0000", /* cursor background */
+//    [259] = "#000000", /* cursor foreground */
 };
 /*
  * Default colors (colorname index)
