@@ -22,8 +22,6 @@ st \- simple terminal
 .IR line ]
 .RB [ \-w
 .IR windowid ]
-.RB [ \-z
-.IR fontsize ]
 .RB [[ \-e ]
 .IR command
 .RI [ arguments ...]]
@@ -46,8 +44,6 @@ st \- simple terminal
 .IR title ]
 .RB [ \-w
 .IR windowid ]
-.RB [ \-z
-.IR fontsize ]
 .RB \-l
 .IR line
 .RI [ stty_args ...]
@@ -94,10 +90,6 @@ defines the window title (default 'st').
 .BI \-w " windowid"
 embeds st within the window identified by
 .I windowid
-.TP
-.BI \-z " fontsize"
-sets the default fontsize to
-.I fontsize
 .TP
 .BI \-l " line"
 use a tty

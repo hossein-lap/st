@@ -5,7 +5,16 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Source Code Pro:pixelsize=20:antialias=true:autohint=true";
+//static char *font = "SauceCodePro Nerd Font:pixelsize=18:antialias=true:autohint=true";
+/* Spare fonts */
+static char *font2[] = {
+	"Vazir Code Hack Extra Height:pixelsize=20:antialias=true:autohint=true",
+//	"Sauce Code Pro Nerd Font:pixelsize=20:antialias=true:autohint=true",
+//	"Inconsolata for Powerline:pixelsize=18:antialias=true:autohint=true",
+/*	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
+};
+
 static int borderpx = 2;
 
 /*
@@ -68,6 +77,18 @@ static unsigned int blinktimeout = 800;
 static unsigned int cursorthickness = 2;
 
 /*
+ * 1: render most of the lines/blocks characters without using the font for
+ *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
+ *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
+ * 0: disable (render all U25XX glyphs normally from the font).
+ */
+const int boxdraw = 0;
+const int boxdraw_bold = 0;
+
+/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
+const int boxdraw_braille = 0;
+
+/*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
@@ -93,50 +114,334 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
+/* bg opacity */
+float alpha = 0.95;
+
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-
+	/* colorschemes {{{ */ 
+////	/* Gruvbox Dark {{{ */
+//	/* 8 normal colors */
+//	[0] = "#282828", /* black   */
+//	[1] = "#cc241d", /* red     */
+//	[2] = "#98971a", /* green   */
+//	[3] = "#d79921", /* yellow  */
+//	[4] = "#458588", /* blue    */
+//	[5] = "#b16286", /* magenta */
+//	[6] = "#689d6a", /* cyan    */
+//	[7] = "#a89984", /* white   */
+//
+//	/* 8 bright colors */
+//	[8]  = "#928374", /* black   */
+//	[9]  = "#fb4934", /* red     */
+//	[10] = "#b8bb26", /* green   */
+//	[11] = "#fabd2f", /* yellow  */
+//	[12] = "#83a598", /* blue    */
+//	[13] = "#d3869b", /* magenta */
+//	[14] = "#8ec07c", /* cyan    */
+//	[15] = "#ebdbb2", /* white   */
+//
+//	/* special colors */
+//	[256] = "#1d2021", /* background */ /* hard contrast: #1d2021 / normal contrast: #282828 / soft contrast: #32302f */
+//	[257] = "#ebdbb2", /* foreground */
+//	[258] = "#f32323", /* cursor background */
+//	[259] = "#000000", /* cursor foreground */
+////	/* }}} */
+////	/* Solarized {{{ */ 
+//	/* Normal */
+//	[0] = "#073642",  /*  0: black    */
+//	[1] = "#dc322f",  /*  1: red      */
+//	[2] = "#859900",  /*  2: green    */
+//	[3] = "#b58900",  /*  3: yellow   */
+//	[4] = "#268bd2",  /*  4: blue     */
+//	[5] = "#d33682",  /*  5: magenta  */
+//	[6] = "#2aa198",  /*  6: cyan     */
+//	[7] = "#eee8d5",  /*  7: white    */
+//	/* Bright */
+//	[8]  = "#002b36",  /*  8: brblack  */
+//	[9]  = "#cb4b16",  /*  9: brred    */
+//	[10] = "#586e75",  /* 10: brgreen  */
+//	[11] = "#657b83",  /* 11: bryellow */
+//	[12] = "#839496",  /* 12: brblue   */
+//	[13] = "#6c71c4",  /* 13: brmagenta*/
+//	[14] = "#93a1a1",  /* 14: brcyan   */
+//	[15] = "#fdf6e3",  /* 15: brwhite  */
+//	[255] = 0,
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#002b36", /* 256 -> bg */
+//	[257] = "#cccccc", /* 257 -> fg */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+//	/* }}}*/
+////	/* Hybrid Dark {{{ */ 
+//	/* Normal */
+//	[0] = "#2a2e33",
+//	[1] = "#b84d51",
+//	[2] = "#b3bf5a",
+//	[3] = "#e4b55e",
+//	[4] = "#6e90b0",
+//	[5] = "#a17eac",
+//	[6] = "#7fbfb4",
+//	[7] = "#b5b9b6",
+//	/* Bright */
+//	[8]  = "#1d1f22",
+//	[9]  = "#8d2e32",
+//	[10] = "#798431",
+//	[11] = "#e58a50",
+//	[12] = "#4b6b88",
+//	[13] = "#6e5079",
+//	[14] = "#4d7b74",
+//	[15] = "#5a626a",
+//	[255] = 0,
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#161719", /* 256 -> bg */
+//	[257] = "#b7bcba", /* 257 -> fg */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+//	/* }}} */
+////	/* Hybrid 16 {{{ */ 
+//	/* Normal */
+//	[0] = "#1d1f22",
+//	[1] = "#8d2e32",
+//	[2] = "#798431",
+//	[3] = "#e58a50",
+//	[4] = "#4b6b88",
+//	[5] = "#6e5079",
+//	[6] = "#4d7b74",
+//	[7] = "#5a626a",
+//	/* Bright */
+//	[8]  = "#1d1f22",
+//	[9]  = "#8d2e32",
+//	[10] = "#798431",
+//	[11] = "#e58a50",
+//	[12] = "#4b6b88",
+//	[13] = "#6e5079",
+//	[14] = "#4d7b74",
+//	[15] = "#5a626a",
+//	[255] = 0,
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#222222", /* 256 -> bg */
+//	[257] = "#b7bcba", /* 257 -> fg */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+//	/* }}} */
+//// /* Terminal colors (Darcula) (16 first used in escape sequence) *//*{{{*/
+//  /* 8 normal colors */
+//  [0] = "#000000", /* black   */
+//  [1] = "#ff5555", /* red     */
+//  [2] = "#50fa7b", /* green   */
+//  [3] = "#f1fa8c", /* yellow  */
+//  [4] = "#bd93f9", /* blue    */
+//  [5] = "#ff79c6", /* magenta */
+//  [6] = "#8be9fd", /* cyan    */
+//  [7] = "#bbbbbb", /* white   */
+//
+//  /* 8 bright colors */
+//  [8]  = "#44475a", /* black   */
+//  [9]  = "#ff5555", /* red     */
+//  [10] = "#50fa7b", /* green   */
+//  [11] = "#f1fa8c", /* yellow  */
+//  [12] = "#bd93f9", /* blue    */
+//  [13] = "#ff79c6", /* magenta */
+//  [14] = "#8be9fd", /* cyan    */
+//  [15] = "#ffffff", /* white   */
+//
+//  /* special colors */
+//  [256] = "#282a36", /* background */
+//  [257] = "#f8f8f2", /* foreground */
+//  [258] = "#ff0026", /* cursor background */
+//  [259] = "#000000", /* cursor foreground */
+///*}}}*/
+//// /* Terminal colors (Custom) *//*{{{*/
+//  /* 8 normal colors */
+//  [0] = "#1d1d1d", /* black   */
+//  [1] = "#f92655", /* red     */
+//  [2] = "#a6e22e", /* green   */
+//  [3] = "#fd9717", /* yellow  */
+//  [4] = "#4e82aa", /* blue    */
+//  [5] = "#8c54de", /* magenta */
+//  [6] = "#544565", /* cyan    */
+//  [7] = "#ccccc6", /* white   */
+//
+//  /* 8 bright colors */
+//  [8]  = "#75715e", /* black   */
+//  [9]  = "#f92633", /* red     */
+//  [10] = "#a6e22e", /* green   */
+//  [11] = "#f4bf75", /* yellow  */
+//  [12] = "#66d9ef", /* blue    */
+//  [13] = "#ae81ff", /* magenta */
+//  [14] = "#545455", /* cyan    */
+//  [15] = "#f9f8f5", /* white   */
+//
+//  /* special colors */
+//  [256] = "#121212", /* background */
+//  [257] = "#ccccc6", /* foreground */
+//  [258] = "#ff0026", /* cursor background */
+//  [259] = "#000000", /* cursor foreground */
+///*}}}*/
+////	/* Custom {{{ */ 
+//	/* Normal */
+//	[0] = "#073642",  /*  0: black    */
+//	[1] = "#dc322f",  /*  1: red      */
+//	[2] = "#b3bf5a",
+//	[3] = "#e4b55e",
+//	[4] = "#268bd2",  /*  4: blue     */
+//	[5] = "#d33682",  /*  5: magenta  */
+//	[6] = "#2aa198",  /*  6: cyan     */
+//	[7] = "#eee8d5",  /*  7: white    */
+//	/* Bright */
+//	[8]  = "#002b36",  /*  8: brblack  */
+//	[9]  = "#cb4b16",  /*  9: brred    */
+//	[10] = "#859900",  /*  2: green    */
+//	[11] = "#e58a50",
+//	[12] = "#839496",  /* 12: brblue   */
+//	[13] = "#6e5079",
+//	[14] = "#7fbfb4",
+//	[15] = "#5a626a",
+//	[255] = 0,
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#161719", /* 256 -> bg */
+//	[257] = "#b7bcba", /* 257 -> fg */
+////	[257] = "#daccc2", /* foreground */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+////	/* }}} */
+///
+//// Terminal colors (256_noir) {{{
+//  /* 8 normal colors */
+//  [0] = "#000000", /* black   */
+//  [1] = "#ee0000", /* red     */
+//  [2] = "#383833", /* green   */
+//  [3] = "#AAABA6", /* yellow  */
+//  [4] = "#585855", /* blue    */
+//  [5] = "#D6D6D0", /* magenta */
+//  [6] = "#7a7a77", /* cyan    */
+//  [7] = "#AAABA6", /* white   */
+//
+//  /* 8 bright colors */
+//  [8]  = "#2E2E2C", /* black   */
+//  [9]  = "#aa0000", /* red     */
+//  [10] = "#7a7a77", /* green   */
+//  [11] = "#D6D6D0", /* yellow  */
+//  [12] = "#7a7a77", /* blue    */
+//  [13] = "#AAABA6", /* magenta */
+//  [14] = "#585855", /* cyan    */
+//  [15] = "#D6D6D0", /* white   */
+//// }}}
+//// Terminal colors (Darcula) {{{
+//  /* 8 normal colors */
+//  [0] = "#000000", /* black   */
+//  [1] = "#ff5555", /* red     */
+//  [2] = "#50fa7b", /* green   */
+//  [3] = "#f1fa8c", /* yellow  */
+//  [4] = "#bd93f9", /* blue    */
+//  [5] = "#ff79c6", /* magenta */
+//  [6] = "#8be9fd", /* cyan    */
+//  [7] = "#bbbbbb", /* white   */
+//
+//  /* 8 bright colors */
+//  [8]  = "#44475a", /* black   */
+//  [9]  = "#ff5555", /* red     */
+//  [10] = "#50fa7b", /* green   */
+//  [11] = "#f1fa8c", /* yellow  */
+//  [12] = "#bd93f9", /* blue    */
+//  [13] = "#ff79c6", /* magenta */
+//  [14] = "#8be9fd", /* cyan    */
+//  [15] = "#ffffff", /* white   */
+//// }}}
+//// Terminal colors (VSCode's) {{{
+//	/* 8 normal colors */
+//	[0] = "#000000", /* black   */
+//	[1] = "#cd3131", /* red     */
+//	[2] = "#0dbc79", /* green   */
+//	[3] = "#e5e510", /* yellow  */
+//	[4] = "#2472c8", /* blue    */
+//	[5] = "#bc3fbc", /* magenta */
+//	[6] = "#11a8cd", /* cyan    */
+//	[7] = "#e5e5e5", /* white   */
+//
+//	/* 8 bright colors */
+//	[8]  = "#666666", /* black   */
+//	[9]  = "#f14c4c", /* red     */
+//	[10] = "#50fa7b", /* green   */
+//	[11] = "#f1fa8c", /* yellow  */
+//	[12] = "#3b8eea", /* blue    */
+//	[13] = "#d670d6", /* magenta */
+//	[14] = "#29b8db", /* cyan    */
+//	[15] = "#e5e5e5", /* white   */
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#161719", /* 256 -> bg */
+//	[257] = "#b7bcba", /* 257 -> fg */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+//// }}}
+//// Terminal colors (KDE Breeze) {{{
+//	/* 8 normal colors */
+//	[0] =  "#232627", /* black   */
+//	[1] =  "#ed1515", /* red     */
+//	[2] =  "#11d116", /* green   */
+//	[3] =  "#f67400", /* yellow  */
+//	[4] =  "#1d99f3", /* blue    */
+//	[5] =  "#9b59b6", /* magenta */
+//	[6] =  "#1abc9c", /* cyan    */
+//	[7] =  "#fcfcfc", /* white   */
+//
+//	/* 8 bright colors */
+//	[8]  =  "#7f8c8d", /* black   */
+//	[9]  =  "#c0392b", /* red     */
+//	[10] =  "#1cdc9a", /* green   */
+//	[11] =  "#fdbc4b", /* yellow  */
+//	[12] =  "#3daee9", /* blue    */
+//	[13] =  "#8e44ad", /* magenta */
+//	[14] =  "#16a085", /* cyan    */
+//	[15] =  "#ffffff", /* white   */
+//	/* more colors can be added after 255 to use with DefaultXX */
+//	[256] = "#161719", /* 256 -> bg */
+//	[257] = "#b7bcba", /* 257 -> fg */
+//	[258] = "#f32323", /* 258 -> cursor */
+//	[259] = "#000000", /* 259 -> rev cursor*/
+//// }}}
+///
+///
+// /* Terminal colors (Custom) *//*{{{*/
   /* 8 normal colors */
-  [0] = "#000000", /* black   */
-  [1] = "#ff5555", /* red     */
-  [2] = "#50fa7b", /* green   */
-  [3] = "#f1fa8c", /* yellow  */
-  [4] = "#bd93f9", /* blue    */
-  [5] = "#ff79c6", /* magenta */
-  [6] = "#8be9fd", /* cyan    */
-  [7] = "#bbbbbb", /* white   */
+  [0] = "#1d1d1d", /* black   */
+  [1] = "#f92655", /* red     */
+  [2] = "#a6e22e", /* green   */
+  [3] = "#fd9717", /* yellow  */
+  [4] = "#4e82aa", /* blue    */
+  [5] = "#8c54de", /* magenta */
+  [6] = "#2aa198", /* cyan    */
+  [7] = "#ccccc6", /* white   */
 
   /* 8 bright colors */
-  [8]  = "#44475a", /* black   */
-  [9]  = "#ff5555", /* red     */
-  [10] = "#50fa7b", /* green   */
-  [11] = "#f1fa8c", /* yellow  */
-  [12] = "#bd93f9", /* blue    */
-  [13] = "#ff79c6", /* magenta */
-  [14] = "#8be9fd", /* cyan    */
-  [15] = "#ffffff", /* white   */
+  [8]  = "#75715e", /* black   */
+  [9]  = "#f92633", /* red     */
+  [10] = "#a6e22e", /* green   */
+  [11] = "#f4bf75", /* yellow  */
+  [12] = "#66d9ef", /* blue    */
+  [13] = "#ae81ff", /* magenta */
+  [14] = "#545455", /* cyan    */
+  [15] = "#f9f8f5", /* white   */
 
   /* special colors */
-  [256] = "#282a36", /* background */
-  [257] = "#f8f8f2", /* foreground */
+  [256] = "#000000", /* background */
+  [257] = "#bbbbbb", /* foreground */
+  [258] = "#f32323", /* cursor background */
+  [259] = "#000000", /* cursor foreground */
+///*}}}*/
+	/* }}} */
 };
 
 /*
  * Default colors (colorname index)
- * foreground, background, cursor
+ * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 257;
 unsigned int defaultbg = 256;
-static unsigned int defaultcs = 257;
-static unsigned int defaultrcs = 257;
+unsigned int defaultfg = 257;
+unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 259;
 
-/*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
-unsigned int defaultitalic = 7;
-unsigned int defaultunderline = 7;
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -206,6 +511,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ Mod4Mask,            XK_s,         changealpha,    {.f = -0.05} },
+	{ Mod4Mask,            XK_a,         changealpha,    {.f = +0.05} },
 };
 
 /*
