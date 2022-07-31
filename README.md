@@ -3,4 +3,4 @@ simple (suckless) terminal
 
 ### Screenshot
 
-![jcal and neofetch](shots/211120_141315.png)
+![jcal and neofetch](shots/220731_232501.png)
