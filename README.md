@@ -9,7 +9,14 @@ In order to build st you need the Xlib header files.
 
 ### Extra dependencies (for applied patches)
 
-    none yet - it's plain for now
++ alpha
+    + an X composite manager (e.g. compton, xcompmgr)
+    
+
+## Patches
+
++ alpha
+    + `-A` option is added to allow changing the opacity value without compiling
 
 
 ## Installation
