@@ -11,6 +11,8 @@ In order to build st you need the Xlib header files.
 
 + alpha
     + an X composite manager (e.g. compton, xcompmgr)
++ ligatures
+    + HarfBuzz
     
 
 ## Patches
