@@ -214,6 +214,7 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_F12,         changealpha,    {.f = +0.05} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
 };
 
 /*
