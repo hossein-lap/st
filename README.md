@@ -7,6 +7,10 @@ st is a simple terminal emulator for X which sucks less.
 
 In order to build st you need the Xlib header files.
 
++ libX11
++ libXft
+
+
 ### Extra dependencies (for applied patches)
 
 + alpha
@@ -19,6 +23,15 @@ In order to build st you need the Xlib header files.
 
 + alpha
     + `-A` option is added to allow changing the opacity value without compiling
+    + changealpha
++ scrollblack
++ font2
++ ligatures
+    + ligatures-alpha-scrollblack
++ newterm
+    + newterm-tabbed
++ colorschemes
+    + `-s` option to set the current colorscheme at commandline
 
 
 ## Installation
@@ -47,14 +60,16 @@ Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
 ## Screenshots
 
-+ ![00-onedark-theme](shots/shot-00-onedark.png)
-+ ![01-dracula-theme](shots/shot-01-dracula.png)
-+ ![02-solarized-dark-theme](shots/shot-02-solarized-dark.png)
-+ ![03-ayu-dark-theme](shots/shot-03-ayu-dark.png)
-+ ![04-hybrid-theme](shots/shot-04-hybrid.png)
-+ ![05-nord-theme](shots/shot-05-nord.png)
-+ ![06-gruvbox-dark-theme](shots/shot-06-gruvbox-dark.png)
-+ ![07-ubuntu-theme](shots/shot-07-ubuntu.png)
-+ ![08-default-theme](shots/shot-08-default.png)
-+ ![09-solarized-light-theme](shots/shot-09-solarized-light.png)
+| **index** |     **name**    |                           **shot**                             |
+|:----------|:----------------|:---------------------------------------------------------------|
+|     0     | onedark         | ![00-onedark-theme](shots/shot-00-onedark.png)                 |
+|     1     | dracula         | ![01-dracula-theme](shots/shot-01-dracula.png)                 |
+|     2     | solarized-dark  | ![02-solarized-dark-theme](shots/shot-02-solarized-dark.png)   |
+|     3     | ayu-dark        | ![03-ayu-dark-theme](shots/shot-03-ayu-dark.png)               |
+|     4     | hybrid-dark     | ![04-hybrid-theme](shots/shot-04-hybrid.png)                   |
+|     5     | nord            | ![05-nord-theme](shots/shot-05-nord.png)                       |
+|     6     | gruvbox-dark    | ![06-gruvbox-dark-theme](shots/shot-06-gruvbox-dark.png)       |
+|     7     | ubuntu          | ![07-ubuntu-theme](shots/shot-07-ubuntu.png)                   |
+|     8     | default         | ![08-default-theme](shots/shot-08-default.png)                 |
+|     9     | solarized-light | ![09-solarized-light-theme](shots/shot-09-solarized-light.png) |
 
