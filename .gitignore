@@ -1,0 +1,47 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# vim
+*.swp
+*~
+
+# patch
+*.rej
+*.orig
+
+config.h
+
+# 9base stuff
+9base/awk/y.tab.c
+9base/awk/y.tab.h
+9base/bc/y.tab.c
+9base/bc/y.tab.h
+9base/grep/y.tab.c
+9base/grep/y.tab.h
+9base/hoc/y.tab.c
+9base/hoc/y.tab.h
+9base/rc/x.tab.h
+9base/rc/y.tab.c
+9base/rc/y.tab.h
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+st
