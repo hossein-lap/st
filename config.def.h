@@ -11,8 +11,8 @@ static char *font = "Fira Code:pixelsize=24:antialias=true:autohint=true";
 static char *font2[] = {
 	 "FiraCode Nerd Font:pixelsize=20:antialias=true:autohint=true",
 	 "Font Awesome:pixelsize=20:antialias=true:autohint=true",
-	 "JoyPixels:pixelsize=25:antialias=true:autohint=true",
-	/* "Noto Color Emoji:pixelsize=25:antialias=true:autohint=true", */
+	/* "JoyPixels:pixelsize=25:antialias=true:autohint=true", */
+	 "Noto Color Emoji:pixelsize=25:antialias=true:autohint=true",
 	/* "FuraMono Nerd Font:pixelsize=24:antialias=true:autohint=true", */
 	/* "Vazir Code:pixelsize=29:antialias=true:autohint=false", */
 };
@@ -132,7 +132,7 @@ typedef struct {
 #include "colorschemes.h"
 
 static const char * const * colorname;
-int colorscheme = 0;
+int colorscheme = 4;
 
 /*
  * Default colors (colorname index)
@@ -214,7 +214,7 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_a,           changealpha,    {.f = +0.05} },
 	{ TERMMOD,              XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ TERMMOD,              XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_Return,      newterm,        {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_Return,      newterm,        {.i =  0} },
 	{ MODKEY,               XK_1,           selectscheme,   {.i =  0} },
 	{ MODKEY,               XK_2,           selectscheme,   {.i =  1} },
 	{ MODKEY,               XK_3,           selectscheme,   {.i =  2} },
