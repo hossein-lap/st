@@ -5,14 +5,13 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Fira Code:pixelsize=24:antialias=true:autohint=true";
+static char *font = "Fira Code:pixelsize=20:antialias=true:autohint=true";
 
 /* Spare fonts */
 static char *font2[] = {
 	 "FiraCode Nerd Font:pixelsize=20:antialias=true:autohint=true",
 	 "Font Awesome:pixelsize=20:antialias=true:autohint=true",
-	/* "JoyPixels:pixelsize=25:antialias=true:autohint=true", */
-	 "Noto Color Emoji:pixelsize=25:antialias=true:autohint=true",
+	"Noto Color Emoji:pixelsize=24:antialias=true:autohint=true",
 	/* "FuraMono Nerd Font:pixelsize=24:antialias=true:autohint=true", */
 	/* "Vazir Code:pixelsize=29:antialias=true:autohint=false", */
 };
