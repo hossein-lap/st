@@ -5,18 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Fira Code:pixelsize=20:antialias=true:autohint=true";
-
-/* Spare fonts */
-static char *font2[] = {
-	 "FiraCode Nerd Font:pixelsize=20:antialias=true:autohint=true",
-	 "Font Awesome:pixelsize=20:antialias=true:autohint=true",
-	"Noto Color Emoji:pixelsize=24:antialias=true:autohint=true",
-	/* "FuraMono Nerd Font:pixelsize=24:antialias=true:autohint=true", */
-	/* "Vazir Code:pixelsize=29:antialias=true:autohint=false", */
-};
-
-static int borderpx = 4;
+static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -44,7 +34,7 @@ static float chscale = 1.0;
  *
  * More advanced example: L" `'\"()[]{}"
  */
-wchar_t *worddelimiters = L" `\":,;";
+wchar_t *worddelimiters = L" ";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -75,7 +65,7 @@ static unsigned int blinktimeout = 800;
 /*
  * thickness of underline and bar cursors
  */
-static unsigned int cursorthickness = 4;
+static unsigned int cursorthickness = 2;
 
 /*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
@@ -103,44 +93,46 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-float alpha = 1.00; /* was 0.95 */
+/* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	/* 8 normal colors */
+	"black",
+	"red3",
+	"green3",
+	"yellow3",
+	"blue2",
+	"magenta3",
+	"cyan3",
+	"gray90",
 
-typedef struct {
-	const char* const colors[258]; /* terminal colors */
-	unsigned int fg;               /* foreground */
-	unsigned int bg;               /* background */
-	unsigned int cs;               /* cursor */
-	unsigned int rcs;              /* reverse cursor */
-} ColorScheme;
-/*
- * Terminal colors (16 first used in escape sequence,
- * 2 last for custom cursor color),
- * foreground, background, cursor, reverse cursor
- */
+	/* 8 bright colors */
+	"gray50",
+	"red",
+	"green",
+	"yellow",
+	"#5c5cff",
+	"magenta",
+	"cyan",
+	"white",
 
-/*
- * colorschemes.h --- use it in `int colorscheme` to set the default value
- *    • [0] onedark         • [5] nord
- *    • [1] dracula         • [6] gruvbox-dark  
- *    • [2] solarized-dark  • [7] ubuntu
- *    • [3] ayu-dark        • [8] default
- *    • [4] hybrid          • [9] solarized-light
- */
+	[255] = 0,
 
-#include "colorschemes.h"
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#cccccc",
+	"#555555",
+	"gray90", /* default foreground colour */
+	"black", /* default background colour */
+};
 
-static const char * const * colorname;
-int colorscheme = 4;
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg;
-unsigned int defaultbg;
-unsigned int defaultcs;
-static unsigned int defaultrcs;
+unsigned int defaultfg = 258;
+unsigned int defaultbg = 259;
+unsigned int defaultcs = 256;
+static unsigned int defaultrcs = 257;
 
 /*
  * Default shape of cursor
@@ -155,8 +147,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 90;
-static unsigned int rows = 26;
+static unsigned int cols = 80;
+static unsigned int rows = 24;
 
 /*
  * Default colour and shape of the mouse cursor
@@ -184,15 +176,15 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},        1 },
+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"}      },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"}      },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -201,31 +193,14 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ MODKEY,               XK_equal,       zoom,           {.f = +1} },
-	{ MODKEY,               XK_minus,       zoom,           {.f = -1} },
-	{ MODKEY|ControlMask,   XK_equal,       zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
+	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_z,           selpaste,       {.i =  0} },
-	{ MODKEY|ShiftMask,     XK_x,           selpaste,       {.i =  0} },
-	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_s,           changealpha,    {.f = -0.05} },
-	{ MODKEY,               XK_a,           changealpha,    {.f = +0.05} },
-	{ TERMMOD,              XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ TERMMOD,              XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ MODKEY|ShiftMask,     XK_Return,      newterm,        {.i =  0} },
-	{ MODKEY,               XK_1,           selectscheme,   {.i =  0} },
-	{ MODKEY,               XK_2,           selectscheme,   {.i =  1} },
-	{ MODKEY,               XK_3,           selectscheme,   {.i =  2} },
-	{ MODKEY,               XK_4,           selectscheme,   {.i =  3} },
-	{ MODKEY,               XK_5,           selectscheme,   {.i =  4} },
-	{ MODKEY,               XK_6,           selectscheme,   {.i =  5} },
-	{ MODKEY,               XK_7,           selectscheme,   {.i =  6} },
-	{ MODKEY,               XK_8,           selectscheme,   {.i =  7} },
-	{ MODKEY,               XK_9,           selectscheme,   {.i =  8} },
-	{ MODKEY,               XK_0,           selectscheme,   {.i =  9} },
-	{ MODKEY,               XK_Right,       nextscheme,     {.i = +1} },
-	{ MODKEY,               XK_Left,        nextscheme,     {.i = -1} },
+	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 };
 
 /*
