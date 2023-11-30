@@ -8,7 +8,7 @@
 static char *font = "Ubuntu Mono:size=14:antialias=true:autohint=true";
 /* spare fonts */
 static char *font2[] = {
-	"FiraCode Nerd Font:size=12:antialias=true:autohint=true",
+	"UbuntuMono Nerd Font:size=14:antialias=true:autohint=true",
 	"Font Awesome:size=12:antialias=true:autohint=true",
 	"Noto Color Emoji:size=12:antialias=true:autohint=true",
 };
@@ -212,8 +212,8 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ MODKEY,               XK_s,           changealpha,    {.f = -0.05} },
-	{ MODKEY,               XK_a,           changealpha,    {.f = +0.05} },
+	{ MODKEY,               XK_Left,        changealpha,    {.f = -0.05} },
+	{ MODKEY,               XK_Right,       changealpha,    {.f = +0.05} },
 	{ MODKEY,               XK_equal,       zoom,           {.f = +1} },
 	{ MODKEY,               XK_minus,       zoom,           {.f = -1} },
 	{ MODKEY|ControlMask,   XK_equal,       zoomreset,      {.f =  0} },
