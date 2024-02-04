@@ -8,9 +8,10 @@
 static char *font = "Ubuntu Mono:size=14:antialias=true:autohint=true";
 /* spare fonts */
 static char *font2[] = {
-	"UbuntuMono Nerd Font:size=14:antialias=true:autohint=true",
-	"Font Awesome:size=12:antialias=true:autohint=true",
-	"Noto Color Emoji:size=12:antialias=true:autohint=true",
+	"Liberation Mono:size=12:antialias=true:autohint=true",
+	// "UbuntuMono Nerd Font:size=14:antialias=true:autohint=true",
+	// "Font Awesome:size=12:antialias=true:autohint=true",
+	// "Noto Color Emoji:size=12:antialias=true:autohint=true",
 };
 
 static int borderpx = 4;
@@ -129,8 +130,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 100;
+static unsigned int rows = 30;
 
 /*
  * Default colour and shape of the mouse cursor
@@ -212,18 +213,18 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Left,        changealpha,    {.f = -0.05} },
-	{ TERMMOD,              XK_Right,       changealpha,    {.f = +0.05} },
-	{ TERMMOD,              XK_equal,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_minus,       zoom,           {.f = -1} },
+	{ MODKEY,               XK_s,           changealpha,    {.f = -0.05} },
+	{ MODKEY,               XK_a,           changealpha,    {.f = +0.05} },
+	{ MODKEY,               XK_equal,       zoom,           {.f = +1} },
+	{ MODKEY,               XK_minus,       zoom,           {.f = -1} },
 	{ MODKEY|ControlMask,   XK_equal,       zoomreset,      {.f =  0} },
 	{ MODKEY,               XK_c,           clipcopy,       {.i =  0} },
 	{ MODKEY,               XK_v,           clippaste,      {.i =  0} },
 	{ MODKEY,               XK_y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,              XK_Up,          kscrollup,      {.i = -1} },
-	{ TERMMOD,              XK_Down,        kscrolldown,    {.i = -1} },
+	{ MODKEY,               XK_Page_Up,          kscrollup,      {.i = -1} },
+	{ MODKEY,               XK_Page_Down,        kscrolldown,    {.i = -1} },
 	{ MODKEY,               XK_Return,      newterm,        {.i =  0} },
 };
 
