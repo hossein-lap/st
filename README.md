@@ -31,7 +31,7 @@ In order to build st you need the Xlib header files.
 + newterm
     + newterm-tabbed
 + colorschemes
-    + `-s` option to set the current colorscheme at commandline
+    + `-s` option to set the current colorscheme at commandline (deprecated)
 
 
 ## Installation
