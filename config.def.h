@@ -5,15 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Ubuntu Mono:size=14:antialias=true:autohint=true";
-/* spare fonts */
-static char *font2[] = {
-	"UbuntuMono Nerd Font:size=14:antialias=true:autohint=true",
-	"Font Awesome:size=12:antialias=true:autohint=true",
-	"Noto Color Emoji:size=12:antialias=true:autohint=true",
-};
-
-static int borderpx = 4;
+static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -41,7 +34,7 @@ static float chscale = 1.0;
  *
  * More advanced example: L" `'\"()[]{}"
  */
-wchar_t *worddelimiters = L" :,";
+wchar_t *worddelimiters = L" ";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -100,21 +93,46 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-float alpha = 1.0;
+/* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	/* 8 normal colors */
+	"black",
+	"red3",
+	"green3",
+	"yellow3",
+	"blue2",
+	"magenta3",
+	"cyan3",
+	"gray90",
 
-/* Terminal colors */
-#include "colors/onedark.h"
+	/* 8 bright colors */
+	"gray50",
+	"red",
+	"green",
+	"yellow",
+	"#5c5cff",
+	"magenta",
+	"cyan",
+	"white",
+
+	[255] = 0,
+
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#cccccc",
+	"#555555",
+	"gray90", /* default foreground colour */
+	"black", /* default background colour */
+};
+
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-
-unsigned int defaultbg = 256;
-unsigned int defaultfg = 257;
-unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 259;
+unsigned int defaultfg = 258;
+unsigned int defaultbg = 259;
+unsigned int defaultcs = 256;
+static unsigned int defaultrcs = 257;
 
 /*
  * Default shape of cursor
@@ -153,43 +171,6 @@ static unsigned int defaultattr = 11;
 static uint forcemousemod = ShiftMask;
 
 /*
- * Xresources preferences to load at startup
- */
-ResourcePref resources[] = {
-	{ "st.font",         STRING,  &font },
-	{ "st.color0",       STRING,  &colorname[0] },
-	{ "st.color1",       STRING,  &colorname[1] },
-	{ "st.color2",       STRING,  &colorname[2] },
-	{ "st.color3",       STRING,  &colorname[3] },
-	{ "st.color4",       STRING,  &colorname[4] },
-	{ "st.color5",       STRING,  &colorname[5] },
-	{ "st.color6",       STRING,  &colorname[6] },
-	{ "st.color7",       STRING,  &colorname[7] },
-	{ "st.color8",       STRING,  &colorname[8] },
-	{ "st.color9",       STRING,  &colorname[9] },
-	{ "st.color10",      STRING,  &colorname[10] },
-	{ "st.color11",      STRING,  &colorname[11] },
-	{ "st.color12",      STRING,  &colorname[12] },
-	{ "st.color13",      STRING,  &colorname[13] },
-	{ "st.color14",      STRING,  &colorname[14] },
-	{ "st.color15",      STRING,  &colorname[15] },
-	{ "st.background",   STRING,  &colorname[256] },
-	{ "st.foreground",   STRING,  &colorname[257] },
-	{ "st.cursorColor",  STRING,  &colorname[258] },
-	{ "st.termname",     STRING,  &termname },
-	{ "st.shell",        STRING,  &shell },
-	{ "st.minlatency",   INTEGER, &minlatency },
-	{ "st.maxlatency",   INTEGER, &maxlatency },
-	{ "st.blinktimeout", INTEGER, &blinktimeout },
-	{ "st.bellvolume",   INTEGER, &bellvolume },
-	{ "st.tabspaces",    INTEGER, &tabspaces },
-	{ "st.borderpx",     INTEGER, &borderpx },
-	{ "st.cwscale",      FLOAT,   &cwscale },
-	{ "st.chscale",      FLOAT,   &chscale },
-	{ "st.alpha",        FLOAT,   &alpha },
-};
-
-/*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
@@ -203,7 +184,7 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -212,19 +193,14 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ MODKEY,               XK_Left,        changealpha,    {.f = -0.05} },
-	{ MODKEY,               XK_Right,       changealpha,    {.f = +0.05} },
-	{ MODKEY,               XK_equal,       zoom,           {.f = +1} },
-	{ MODKEY,               XK_minus,       zoom,           {.f = -1} },
-	{ MODKEY|ControlMask,   XK_equal,       zoomreset,      {.f =  0} },
-	{ Mod4Mask,             XK_c,           clipcopy,       {.i =  0} },
-	{ Mod4Mask,             XK_v,           clippaste,      {.i =  0} },
-	{ MODKEY,               XK_y,           selpaste,       {.i =  0} },
+	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
+	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
+	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ MODKEY,               XK_Up,          kscrollup,      {.i = -1} },
-	{ MODKEY,               XK_Down,        kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_Return,      newterm,        {.i =  0} },
 };
 
 /*
