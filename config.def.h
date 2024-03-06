@@ -13,7 +13,7 @@ static char *font2[] = {
 	"UbuntuMono Nerd Font Mono:pixelsize=11:antialias=true:autohint=true",
 };
 
-static int borderpx = 2;
+static int borderpx = 4;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -104,44 +104,16 @@ unsigned int tabspaces = 8;
 float alpha = 0.8;
 
 /* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
-
-	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
-	"gray90", /* default foreground colour */
-	"black", /* default background colour */
-};
+#include "colors/tango.h"
 
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 258;
-unsigned int defaultbg = 259;
-unsigned int defaultcs = 256;
+unsigned int defaultbg = 256;
+unsigned int defaultfg = 257;
+unsigned int defaultcs = 258;
 static unsigned int defaultrcs = 257;
 
 /*
@@ -157,8 +129,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 100;
+static unsigned int rows = 30;
 
 /*
  * Default colour and shape of the mouse cursor
@@ -184,36 +156,37 @@ static uint forcemousemod = ShiftMask;
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "font",         STRING,  &font },
-		{ "color0",       STRING,  &colorname[0] },
-		{ "color1",       STRING,  &colorname[1] },
-		{ "color2",       STRING,  &colorname[2] },
-		{ "color3",       STRING,  &colorname[3] },
-		{ "color4",       STRING,  &colorname[4] },
-		{ "color5",       STRING,  &colorname[5] },
-		{ "color6",       STRING,  &colorname[6] },
-		{ "color7",       STRING,  &colorname[7] },
-		{ "color8",       STRING,  &colorname[8] },
-		{ "color9",       STRING,  &colorname[9] },
-		{ "color10",      STRING,  &colorname[10] },
-		{ "color11",      STRING,  &colorname[11] },
-		{ "color12",      STRING,  &colorname[12] },
-		{ "color13",      STRING,  &colorname[13] },
-		{ "color14",      STRING,  &colorname[14] },
-		{ "color15",      STRING,  &colorname[15] },
-		{ "background",   STRING,  &colorname[256] },
-		{ "foreground",   STRING,  &colorname[257] },
-		{ "cursorColor",  STRING,  &colorname[258] },
-		{ "termname",     STRING,  &termname },
-		{ "shell",        STRING,  &shell },
-		{ "minlatency",   INTEGER, &minlatency },
-		{ "maxlatency",   INTEGER, &maxlatency },
-		{ "blinktimeout", INTEGER, &blinktimeout },
-		{ "bellvolume",   INTEGER, &bellvolume },
-		{ "tabspaces",    INTEGER, &tabspaces },
-		{ "borderpx",     INTEGER, &borderpx },
-		{ "cwscale",      FLOAT,   &cwscale },
-		{ "chscale",      FLOAT,   &chscale },
+		{ "st.font",         STRING,  &font },
+		{ "st.color0",       STRING,  &colorname[0] },
+		{ "st.color1",       STRING,  &colorname[1] },
+		{ "st.color2",       STRING,  &colorname[2] },
+		{ "st.color3",       STRING,  &colorname[3] },
+		{ "st.color4",       STRING,  &colorname[4] },
+		{ "st.color5",       STRING,  &colorname[5] },
+		{ "st.color6",       STRING,  &colorname[6] },
+		{ "st.color7",       STRING,  &colorname[7] },
+		{ "st.color8",       STRING,  &colorname[8] },
+		{ "st.color9",       STRING,  &colorname[9] },
+		{ "st.color10",      STRING,  &colorname[10] },
+		{ "st.color11",      STRING,  &colorname[11] },
+		{ "st.color12",      STRING,  &colorname[12] },
+		{ "st.color13",      STRING,  &colorname[13] },
+		{ "st.color14",      STRING,  &colorname[14] },
+		{ "st.color15",      STRING,  &colorname[15] },
+		{ "st.background",   STRING,  &colorname[256] },
+		{ "st.foreground",   STRING,  &colorname[257] },
+		{ "st.cursorColor",  STRING,  &colorname[258] },
+		{ "st.termname",     STRING,  &termname },
+		{ "st.alpha",        FLOAT,   &alpha },
+		{ "st.shell",        STRING,  &shell },
+		{ "st.minlatency",   INTEGER, &minlatency },
+		{ "st.maxlatency",   INTEGER, &maxlatency },
+		{ "st.blinktimeout", INTEGER, &blinktimeout },
+		{ "st.bellvolume",   INTEGER, &bellvolume },
+		{ "st.tabspaces",    INTEGER, &tabspaces },
+		{ "st.borderpx",     INTEGER, &borderpx },
+		{ "st.cwscale",      FLOAT,   &cwscale },
+		{ "st.chscale",      FLOAT,   &chscale },
 };
 
 /*
@@ -234,22 +207,22 @@ static MouseShortcut mshortcuts[] = {
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
-	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
-	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
-	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
+	/* mask                keysym          function        argument */
+	{ XK_ANY_MOD,          XK_Break,       sendbreak,      {.i =  0} },
+	{ ControlMask,         XK_Print,       toggleprinter,  {.i =  0} },
+	{ ShiftMask,           XK_Print,       printscreen,    {.i =  0} },
+	{ XK_ANY_MOD,          XK_Print,       printsel,       {.i =  0} },
+	{ MODKEY,              XK_equal,       zoom,           {.f = +1} },
+	{ MODKEY,              XK_minus,       zoom,           {.f = -1} },
+	{ MODKEY|ControlMask,  XK_equal,       zoomreset,      {.f =  0} },
+	{ MODKEY,              XK_c,           clipcopy,       {.i =  0} },
+	{ MODKEY,              XK_v,           clippaste,      {.i =  0} },
+	{ MODKEY,              XK_y,           selpaste,       {.i =  0} },
+	{ ShiftMask,           XK_Insert,      selpaste,       {.i =  0} },
+	{ MODKEY,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,           XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,           XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ MODKEY,              XK_Return,      newterm,        {.i =  0} },
 };
 
 /*
