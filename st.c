@@ -1071,7 +1071,6 @@ tswapscreen(void)
 void
 newterm(const Arg* a)
 {
-	char *tabbed_win;
 	switch (fork()) {
 	case -1:
 		die("fork failed: %s\n", strerror(errno));
@@ -1084,11 +1083,7 @@ newterm(const Arg* a)
 			break;
 		case 0:
 			chdir_by_pid(pid);
-			tabbed_win = getenv("XEMBED");
-			if (tabbed_win)
-				execl("/proc/self/exe", argv0, "-w", tabbed_win, NULL);
-			else
-				execl("/proc/self/exe", argv0, NULL);
+			execl("/proc/self/exe", argv0, NULL);
 			_exit(1);
 			break;
 		default:
@@ -1748,7 +1743,7 @@ csihandle(void)
 			ttywrite(vtiden, strlen(vtiden), 0);
 		break;
 	case 'b': /* REP -- if last char is printable print it <n> more times */
-		DEFAULT(csiescseq.arg[0], 1);
+		LIMIT(csiescseq.arg[0], 1, 65535);
 		if (term.lastc)
 			while (csiescseq.arg[0]-- > 0)
 				tputc(term.lastc);
@@ -2779,7 +2774,6 @@ draw(void)
 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
 				term.ocx, term.ocy, term.line[term.ocy][term.ocx],
 				term.line[term.ocy], term.col);
-
 	term.ocx = cx;
 	term.ocy = term.c.y;
 	xfinishdraw();
