@@ -20,7 +20,7 @@ static int borderpx = 4;
  * expects farbfeld format
  * pseudo transparency fixes coordinates to the screen origin
  */
-static const char *bgfile = "/home/hos/.local/share/dwm/background.ff";
+static char *bgfile = "/home/hos/.local/share/dwm/background.ff";
 static const int pseudotransparency = 0;
 
 /*
@@ -195,6 +195,7 @@ ResourcePref resources[] = {
 		{ "st.borderpx",     INTEGER, &borderpx },
 		{ "st.cwscale",      FLOAT,   &cwscale },
 		{ "st.chscale",      FLOAT,   &chscale },
+		{ "st.image",        STRING,  &bgfile },
 };
 
 /*
