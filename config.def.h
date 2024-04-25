@@ -21,7 +21,7 @@ static int borderpx = 4;
  * pseudo transparency fixes coordinates to the screen origin
  */
 static char *bgfile = "/home/hos/.local/share/dwm/background.ff";
-static const int pseudotransparency = 0;
+static const int pseudotransparency = 1;
 
 /*
  * What program is execed by st depends of these precedence rules:
