@@ -10,6 +10,7 @@ static char *font = "Liberation Mono:size=14:antialias=true:autohint=true";
 static char *font2[] = {
 	"Fira Code Nerd Font Mono:size=15:antialias=true:autohint=true",
 	"Noto Color Emoji:size=12:antialias=true:autohint=true",
+	"JoyPixels:size=12:antialias=true:autohint=true",
 	"FontAwesome:size=12:antialias=true:autohint=true",
 	"UbuntuMono Nerd Font Mono:size=11:antialias=true:autohint=true",
 };
@@ -113,7 +114,7 @@ unsigned int tabspaces = 8;
 float alpha = 0.8;
 
 /* Terminal colors (16 first used in escape sequence) */
-#include "colors/tango.h"
+#include "colors/solarized-dark.h"
 
 
 /*
