@@ -8,7 +8,6 @@
 static char *font = "Liberation Mono:size=14:antialias=true:autohint=true";
 /* Spare fonts */
 static char *font2[] = {
-	"Fira Code Nerd Font Mono:size=15:antialias=true:autohint=true",
 	"Noto Color Emoji:size=12:antialias=true:autohint=true",
 	"JoyPixels:size=12:antialias=true:autohint=true",
 	"FontAwesome:size=12:antialias=true:autohint=true",
