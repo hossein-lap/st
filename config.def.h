@@ -5,13 +5,13 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:size=14:antialias=true:autohint=true";
+static char *font = "Monospace:size=14:antialias=true:autohint=true";
 /* Spare fonts */
 static char *font2[] = {
-	"Noto Color Emoji:size=12:antialias=true:autohint=true",
-	"JoyPixels:size=12:antialias=true:autohint=true",
-	"FontAwesome:size=12:antialias=true:autohint=true",
-	"UbuntuMono Nerd Font Mono:size=11:antialias=true:autohint=true",
+	// "Noto Color Emoji:size=12:antialias=true:autohint=true",
+	// "JoyPixels:size=12:antialias=true:autohint=true",
+	// "FontAwesome:size=12:antialias=true:autohint=true",
+	// "UbuntuMono Nerd Font Mono:size=11:antialias=true:autohint=true",
 };
 
 static int borderpx = 4;
@@ -216,9 +216,9 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,              XK_equal,       zoom,           {.f = +1} },
 	{ MODKEY,              XK_minus,       zoom,           {.f = -1} },
 	{ MODKEY|ControlMask,  XK_equal,       zoomreset,      {.f =  0} },
-	{ MODKEY,              XK_c,           clipcopy,       {.i =  0} },
-	{ MODKEY,              XK_v,           clippaste,      {.i =  0} },
-	{ MODKEY,              XK_y,           selpaste,       {.i =  0} },
+	{ TERMMOD,             XK_c,           clipcopy,       {.i =  0} },
+	{ TERMMOD,             XK_v,           clippaste,      {.i =  0} },
+	{ TERMMOD,             XK_y,           selpaste,       {.i =  0} },
 	{ ShiftMask,           XK_Insert,      selpaste,       {.i =  0} },
 	{ MODKEY,              XK_Num_Lock,    numlock,        {.i =  0} },
 	{ ShiftMask,           XK_Page_Up,     kscrollup,      {.i = -1} },
