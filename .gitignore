@@ -45,3 +45,7 @@ config.h
 *.x86_64
 *.hex
 st
+result
+
+# nix files
+*.nix

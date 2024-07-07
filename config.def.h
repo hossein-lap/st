@@ -17,6 +17,14 @@ static char *font2[] = {
 static int borderpx = 4;
 
 /*
+ * background image
+ * expects farbfeld format
+ * pseudo transparency fixes coordinates to the screen origin
+ */
+static char *bgfile = "/home/hos/.local/share/dwm/background.ff";
+static const int pseudotransparency = 1;
+
+/*
  * What program is execed by st depends of these precedence rules:
  * 1: program passed with -e
  * 2: scroll and/or utmp
@@ -101,12 +109,8 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-float alpha = 1.0;
-
 /* Terminal colors (16 first used in escape sequence) */
 #include "colors/solarized-dark.h"
-
 
 /*
  * Default colors (colorname index)
@@ -178,7 +182,6 @@ ResourcePref resources[] = {
 		{ "st.foreground",   STRING,  &colorname[257] },
 		{ "st.cursorColor",  STRING,  &colorname[258] },
 		{ "st.termname",     STRING,  &termname },
-		{ "st.alpha",        FLOAT,   &alpha },
 		{ "st.shell",        STRING,  &shell },
 		{ "st.minlatency",   INTEGER, &minlatency },
 		{ "st.maxlatency",   INTEGER, &maxlatency },
@@ -186,6 +189,7 @@ ResourcePref resources[] = {
 		{ "st.bellvolume",   INTEGER, &bellvolume },
 		{ "st.tabspaces",    INTEGER, &tabspaces },
 		{ "st.borderpx",     INTEGER, &borderpx },
+		{ "st.image",        STRING,  &bgfile },
 		{ "st.cwscale",      FLOAT,   &cwscale },
 		{ "st.chscale",      FLOAT,   &chscale },
 };
