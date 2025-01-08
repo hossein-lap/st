@@ -105,17 +105,17 @@ unsigned int tabspaces = 8;
 float alpha = 1.0;
 
 /* Terminal colors (16 first used in escape sequence) */
-#include "colors/solarized-dark.h"
-
+/* #include "colors/solarized-dark.h" */
+#include "colorschemes.h"
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultbg = 256;
-unsigned int defaultfg = 257;
-unsigned int defaultcs = 258;
-static unsigned int defaultrcs = 257;
+unsigned int defaultfg;
+unsigned int defaultbg;
+unsigned int defaultcs;
+static unsigned int defaultrcs;
 
 /*
  * Default shape of cursor
@@ -224,6 +224,17 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,           XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,           XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ MODKEY,              XK_Return,      newterm,        {.i =  0} },
+	{ MODKEY,              XK_1,           selectscheme,   {.i =  0} },
+	{ MODKEY,              XK_2,           selectscheme,   {.i =  1} },
+	{ MODKEY,              XK_3,           selectscheme,   {.i =  2} },
+	{ MODKEY,              XK_4,           selectscheme,   {.i =  3} },
+	{ MODKEY,              XK_5,           selectscheme,   {.i =  4} },
+	{ MODKEY,              XK_6,           selectscheme,   {.i =  5} },
+	{ MODKEY,              XK_7,           selectscheme,   {.i =  6} },
+	{ MODKEY,              XK_8,           selectscheme,   {.i =  7} },
+	{ MODKEY,              XK_9,           selectscheme,   {.i =  8} },
+	{ MODKEY,              XK_0,           nextscheme,     {.i = +1} },
+	{ MODKEY|ControlMask,  XK_0,           nextscheme,     {.i = -1} },
 };
 
 /*
