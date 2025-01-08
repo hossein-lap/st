@@ -183,25 +183,25 @@ static uint forcemousemod = ShiftMask;
  */
 ResourcePref resources[] = {
 		{ "st.font",         STRING,  &font },
-		{ "st.color0",       STRING,  &colorname[0] },
-		{ "st.color1",       STRING,  &colorname[1] },
-		{ "st.color2",       STRING,  &colorname[2] },
-		{ "st.color3",       STRING,  &colorname[3] },
-		{ "st.color4",       STRING,  &colorname[4] },
-		{ "st.color5",       STRING,  &colorname[5] },
-		{ "st.color6",       STRING,  &colorname[6] },
-		{ "st.color7",       STRING,  &colorname[7] },
-		{ "st.color8",       STRING,  &colorname[8] },
-		{ "st.color9",       STRING,  &colorname[9] },
-		{ "st.color10",      STRING,  &colorname[10] },
-		{ "st.color11",      STRING,  &colorname[11] },
-		{ "st.color12",      STRING,  &colorname[12] },
-		{ "st.color13",      STRING,  &colorname[13] },
-		{ "st.color14",      STRING,  &colorname[14] },
-		{ "st.color15",      STRING,  &colorname[15] },
-		{ "st.background",   STRING,  &colorname[256] },
-		{ "st.foreground",   STRING,  &colorname[257] },
-		{ "st.cursorColor",  STRING,  &colorname[258] },
+		/* { "st.color0",       STRING,  &colorname[0] }, */
+		/* { "st.color1",       STRING,  &colorname[1] }, */
+		/* { "st.color2",       STRING,  &colorname[2] }, */
+		/* { "st.color3",       STRING,  &colorname[3] }, */
+		/* { "st.color4",       STRING,  &colorname[4] }, */
+		/* { "st.color5",       STRING,  &colorname[5] }, */
+		/* { "st.color6",       STRING,  &colorname[6] }, */
+		/* { "st.color7",       STRING,  &colorname[7] }, */
+		/* { "st.color8",       STRING,  &colorname[8] }, */
+		/* { "st.color9",       STRING,  &colorname[9] }, */
+		/* { "st.color10",      STRING,  &colorname[10] }, */
+		/* { "st.color11",      STRING,  &colorname[11] }, */
+		/* { "st.color12",      STRING,  &colorname[12] }, */
+		/* { "st.color13",      STRING,  &colorname[13] }, */
+		/* { "st.color14",      STRING,  &colorname[14] }, */
+		/* { "st.color15",      STRING,  &colorname[15] }, */
+		/* { "st.background",   STRING,  &colorname[256] }, */
+		/* { "st.foreground",   STRING,  &colorname[257] }, */
+		/* { "st.cursorColor",  STRING,  &colorname[258] }, */
 		{ "st.termname",     STRING,  &termname },
 		{ "st.alpha",        FLOAT,   &alpha },
 		{ "st.shell",        STRING,  &shell },

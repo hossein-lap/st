@@ -807,8 +807,10 @@ xloadcolor(int i, const char *name, Color *ncolor)
 			}
 			return XftColorAllocValue(xw.dpy, xw.vis,
 			                          xw.cmap, &color, ncolor);
-		} else
-			name = colorname[i];
+		}
+		/* else { */
+		/* 	name = colorname[i]; */
+		/* } */
 	}
 
 	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
@@ -831,9 +833,9 @@ xloadcols(void)
 
 	for (i = 0; i < dc.collen; i++)
 		if (!xloadcolor(i, NULL, &dc.col[i])) {
-			if (colorname[i])
-				die("could not allocate color '%s'\n", colorname[i]);
-			else
+			/* if (colorname[i]) */
+			/* 	die("could not allocate color '%s'\n", colorname[i]); */
+			/* else */
 				die("could not allocate color %d\n", i);
 		}
 
@@ -1338,17 +1340,17 @@ xinit(int cols, int rows)
 	cursor = XCreateFontCursor(xw.dpy, mouseshape);
 	XDefineCursor(xw.dpy, xw.win, cursor);
 
-	if (XParseColor(xw.dpy, xw.cmap, colorname[mousefg], &xmousefg) == 0) {
-		xmousefg.red   = 0xffff;
-		xmousefg.green = 0xffff;
-		xmousefg.blue  = 0xffff;
-	}
+	/* if (XParseColor(xw.dpy, xw.cmap, colorname[mousefg], &xmousefg) == 0) { */
+	/* 	xmousefg.red   = 0xffff; */
+	/* 	xmousefg.green = 0xffff; */
+	/* 	xmousefg.blue  = 0xffff; */
+	/* } */
 
-	if (XParseColor(xw.dpy, xw.cmap, colorname[mousebg], &xmousebg) == 0) {
-		xmousebg.red   = 0x0000;
-		xmousebg.green = 0x0000;
-		xmousebg.blue  = 0x0000;
-	}
+	/* if (XParseColor(xw.dpy, xw.cmap, colorname[mousebg], &xmousebg) == 0) { */
+	/* 	xmousebg.red   = 0x0000; */
+	/* 	xmousebg.green = 0x0000; */
+	/* 	xmousebg.blue  = 0x0000; */
+	/* } */
 
 	XRecolorCursor(xw.dpy, cursor, &xmousefg, &xmousebg);
 
@@ -2303,30 +2305,30 @@ xrdb_load(void)
 			if(!XrmGetResource(xrdb, loadValue, loadValue, &type, &ret))
 			{
 				sprintf(loadValue, "%s%d", "*.color", i);
-				if (!XrmGetResource(xrdb, loadValue, loadValue, &type, &ret))
-					/* reset if not found (unless in range for defaults). */
-					if (i > 15)
-						colorname[i] = NULL;
+				/* if (!XrmGetResource(xrdb, loadValue, loadValue, &type, &ret)) */
+				/* 	/1* reset if not found (unless in range for defaults). *1/ */
+				/* 	if (i > 15) */
+				/* 		colorname[i] = NULL; */
 			}
 
-			if (ret.addr != NULL && !strncmp("String", type, 64))
-				colorname[i] = ret.addr;
+			/* if (ret.addr != NULL && !strncmp("String", type, 64)) */
+			/* 	colorname[i] = ret.addr; */
 		}
 
-		XRESOURCE_LOAD_STRING("foreground", colorname[defaultfg]);
-		XRESOURCE_LOAD_STRING("background", colorname[defaultbg]);
-		XRESOURCE_LOAD_STRING("cursorColor", colorname[defaultcs])
-		else {
-		  // this looks confusing because we are chaining off of the if
-		  // in the macro. probably we should be wrapping everything blocks
-		  // so this isn't possible...
-		  defaultcs = defaultfg;
-		}
-		XRESOURCE_LOAD_STRING("reverse-cursor", colorname[defaultrcs])
-		else {
-		  // see above.
-		  defaultrcs = defaultbg;
-		}
+		/* XRESOURCE_LOAD_STRING("foreground", colorname[defaultfg]); */
+		/* XRESOURCE_LOAD_STRING("background", colorname[defaultbg]); */
+		/* XRESOURCE_LOAD_STRING("cursorColor", colorname[defaultcs]) */
+		/* else { */
+		/*   // this looks confusing because we are chaining off of the if */
+		/*   // in the macro. probably we should be wrapping everything blocks */
+		/*   // so this isn't possible... */
+		/*   defaultcs = defaultfg; */
+		/* } */
+		/* XRESOURCE_LOAD_STRING("reverse-cursor", colorname[defaultrcs]) */
+		/* else { */
+		/*   // see above. */
+		/*   defaultrcs = defaultbg; */
+		/* } */
 
 		XRESOURCE_LOAD_STRING("font", font);
 		XRESOURCE_LOAD_STRING("termname", termname);
@@ -2405,11 +2407,11 @@ updatescheme(void)
 
 	oldbg = defaultbg;
 	oldfg = defaultfg;
-	colorname = schemes[colorscheme].colors;
-	defaultbg = schemes[colorscheme].bg;
-	defaultfg = schemes[colorscheme].fg;
-	defaultcs = schemes[colorscheme].cs;
-	defaultrcs = schemes[colorscheme].rcs;
+	/* colorname = schemes[colorscheme].colors; */
+	/* defaultbg = schemes[colorscheme].bg; */
+	/* defaultfg = schemes[colorscheme].fg; */
+	/* defaultcs = schemes[colorscheme].cs; */
+	/* defaultrcs = schemes[colorscheme].rcs; */
 	xloadcols();
 	if (defaultbg != oldbg)
 		tupdatebgcolor(oldbg, defaultbg);
@@ -2474,11 +2476,11 @@ main(int argc, char *argv[])
 	} ARGEND;
 
 run:
-	colorname = schemes[colorscheme].colors;
-	defaultbg = schemes[colorscheme].bg;
-	defaultfg = schemes[colorscheme].fg;
-	defaultcs = schemes[colorscheme].cs;
-	defaultrcs = schemes[colorscheme].rcs;
+	/* colorname = schemes[colorscheme].colors; */
+	/* defaultbg = schemes[colorscheme].bg; */
+	/* defaultfg = schemes[colorscheme].fg; */
+	/* defaultcs = schemes[colorscheme].cs; */
+	/* defaultrcs = schemes[colorscheme].rcs; */
 
 	if (argc > 0) /* eat all remaining arguments */
 		opt_cmd = argv;
