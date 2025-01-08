@@ -106,7 +106,32 @@ float alpha = 1.0;
 
 /* Terminal colors (16 first used in escape sequence) */
 /* #include "colors/solarized-dark.h" */
+typedef struct {
+       const char* const colors[258]; /* terminal colors */
+       unsigned int fg;               /* foreground */
+       unsigned int bg;               /* background */
+       unsigned int cs;               /* cursor */
+       unsigned int rcs;              /* reverse cursor */
+} ColorScheme;
+/*
+ * Terminal colors (16 first used in escape sequence,
+ * 2 last for custom cursor color),
+ * foreground, background, cursor, reverse cursor
+ */
+
+/*
+ * colorschemes.h --- use it in `int colorscheme` to set the default value
+ *    • [0] onedark         • [5] nord
+ *    • [1] dracula         • [6] gruvbox-dark
+ *    • [2] solarized-dark  • [7] ubuntu
+ *    • [3] ayu-dark        • [8] default
+ *    • [4] hybrid          • [9] gruvbox-light
+ */
+
 #include "colorschemes.h"
+
+static const char * const * colorname;
+int colorscheme = 0;
 
 /*
  * Default colors (colorname index)
