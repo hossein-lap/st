@@ -1,5 +1,4 @@
-static ColorScheme schemes[] = {
-
+static const ColorScheme schemes[] = {
 //	/* Onedark {{{ */
 	{
 		{
@@ -317,7 +316,6 @@ static ColorScheme schemes[] = {
 		257  /* I have no idea XD */
 	},
 //	/*}}}*/
-
 };
 
 // //	/* 256_noir {{{ */

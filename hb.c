@@ -38,25 +38,7 @@ static RuneBuffer hbrunebuffer = { 0, NULL };
  * e. g.
  * FEATURE('c', 'a', 'l', 't'), FEATURE('d', 'l', 'i', 'g')
  */
-hb_feature_t features[] = {
-	// FEATURE('s', 's', '0', '2'),	// <= >=
-	FEATURE('s', 's', '0', '3'),	// &
-	FEATURE('s', 's', '0', '5'),	// @
-	// FEATURE('s', 's', '0', '7'),	// =~ !~
-	FEATURE('s', 's', '0', '8'),	// == === != !==
-	FEATURE('s', 's', '0', '9'),	// >>= <<= ||= |=
-	FEATURE('c', 'v', '0', '1'),	// a
-	FEATURE('c', 'v', '0', '2'),	// g
-	// FEATURE('c', 'v', '1', '4'),	// 3
-	// FEATURE('c', 'v', '1', '6'),	// *
-	// FEATURE('c', 'v', '2', '4'),	// /=
-	FEATURE('c', 'v', '2', '5'),	// .-
-	FEATURE('c', 'v', '2', '6'),	// :-
-	// FEATURE('c', 'v', '2', '7'),	// []
-	// FEATURE('c', 'v', '3', '0'),	// |
-	FEATURE('c', 'v', '3', '2'),	// .=
-};
-
+hb_feature_t features[] = { };
 
 void
 hbunloadfonts()

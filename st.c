@@ -20,8 +20,6 @@
 #include "st.h"
 #include "win.h"
 
-extern char *argv0;
-
 #if   defined(__linux)
  #include <pty.h>
 #elif defined(__OpenBSD__) || defined(__NetBSD__) || defined(__APPLE__)
@@ -162,7 +160,6 @@ typedef struct {
 } STREscape;
 
 static void execsh(char *, char **);
-static int chdir_by_pid(pid_t pid);
 static void stty(char **);
 static void sigchld(int);
 static void ttywriteraw(const char *, size_t);
@@ -816,7 +813,6 @@ ttynew(const char *line, char *cmd, const char *out, char **args)
 		if (pledge("stdio rpath tty proc", NULL) == -1)
 			die("pledge\n");
 #endif
-		fcntl(m, F_SETFD, FD_CLOEXEC);
 		close(s);
 		cmdfd = m;
 		signal(SIGCHLD, sigchld);
@@ -1066,45 +1062,6 @@ tswapscreen(void)
 	term.alt = tmp;
 	term.mode ^= MODE_ALTSCREEN;
 	tfulldirt();
-}
-
-void
-newterm(const Arg* a)
-{
-	char *tabbed_win;
-	switch (fork()) {
-	case -1:
-		die("fork failed: %s\n", strerror(errno));
-		break;
-	case 0:
-		switch (fork()) {
-		case -1:
-			fprintf(stderr, "fork failed: %s\n", strerror(errno));
-			_exit(1);
-			break;
-		case 0:
-			chdir_by_pid(pid);
-			tabbed_win = getenv("XEMBED");
-			if (tabbed_win)
-				execl("/proc/self/exe", argv0, "-w", tabbed_win, NULL);
-			else
-				execl("/proc/self/exe", argv0, NULL);
-			_exit(1);
-			break;
-		default:
-			_exit(0);
-		}
-	default:
-		wait(NULL);
-	}
-}
-
-static int
-chdir_by_pid(pid_t pid)
-{
-	char buf[32];
-	snprintf(buf, sizeof buf, "/proc/%ld/cwd", (long)pid);
-	return chdir(buf);
 }
 
 void
@@ -1748,7 +1705,7 @@ csihandle(void)
 			ttywrite(vtiden, strlen(vtiden), 0);
 		break;
 	case 'b': /* REP -- if last char is printable print it <n> more times */
-		LIMIT(csiescseq.arg[0], 1, 65535);
+		DEFAULT(csiescseq.arg[0], 1);
 		if (term.lastc)
 			while (csiescseq.arg[0]-- > 0)
 				tputc(term.lastc);
@@ -2278,28 +2235,6 @@ tstrsequence(uchar c)
 }
 
 void
-tupdatebgcolor(int oldbg, int newbg)
-{
-	for (int y = 0; y < term.row; y++) {
-		for (int x = 0; x < term.col; x++) {
-			if (term.line[y][x].bg == oldbg)
-				term.line[y][x].bg = newbg;
-		}
-	}
-}
-
-void
-tupdatefgcolor(int oldfg, int newfg)
-{
-	for (int y = 0; y < term.row; y++) {
-		for (int x = 0; x < term.col; x++) {
-			if (term.line[y][x].fg == oldfg)
-				term.line[y][x].fg = newfg;
-		}
-	}
-}
-
-void
 tcontrolcode(uchar ascii)
 {
 	size_t i;
@@ -2801,6 +2736,7 @@ draw(void)
 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
 				term.ocx, term.ocy, term.line[term.ocy][term.ocx],
 				term.line[term.ocy], term.col);
+
 	term.ocx = cx;
 	term.ocy = term.c.y;
 	xfinishdraw();
