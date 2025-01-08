@@ -22,7 +22,7 @@
 *.rej
 *.orig
 
-config.h
+# config.h
 
 # 9base stuff
 9base/awk/y.tab.c
