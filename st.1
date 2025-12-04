@@ -25,10 +25,28 @@ st \- simple terminal
 .RB [[ \-e ]
 .IR command
 .RI [ arguments ...]]
-.RB [ \-s
-.IR scheme <int> ]
-.RB [ \-A
-.IR alpha <float> ]
+.PP
+.B st
+.RB [ \-aiv ]
+.RB [ \-c
+.IR class ]
+.RB [ \-f
+.IR font ]
+.RB [ \-g
+.IR geometry ]
+.RB [ \-n
+.IR name ]
+.RB [ \-o
+.IR iofile ]
+.RB [ \-T
+.IR title ]
+.RB [ \-t
+.IR title ]
+.RB [ \-w
+.IR windowid ]
+.RB \-l
+.IR line
+.RI [ stty_args ...]
 .SH DESCRIPTION
 .B st
 is a simple terminal emulator.
@@ -44,19 +62,6 @@ defines the window class (default $TERM).
 defines the
 .I font
 to use when st is run.
-.TP
-.BI \-s " scheme"
-specify
-.B int
-number [0-9] to use build-in
-.I colorschemes
-at commandline.
-.TP
-.BI \-A " alpha "
-.B float
-number from 0 to 1 to set
-.I transparency
-at commandline.
 .TP
 .BI \-g " geometry"
 defines the X11 geometry string.
